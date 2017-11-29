@@ -9,7 +9,7 @@ module.exports = {
 // inserts data into a collection called `${userId}/${entity}`
 async function insert(userId, entity, data) {
   const connection = await getConnection();
-  const collection = connection.collection(`${userId}/${entity}`);
+  const collection = connection.collection(`${userId}/${entity.name}`);
   if (!Array.isArray(data)) {
     await collection.insertOne(data);
   } else {
