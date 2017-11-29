@@ -3,7 +3,7 @@ const {promisify} = require('util');
 
 // hiding connect and db
 module.exports = {
-  insert, find, findOne
+  insert, find, findOne, deleteOne
 };
 
 // inserts data into a collection called `${userId}/${entity}`
@@ -20,16 +20,23 @@ async function insert(userId, entity, data) {
 // retrieves data from a collection called `${userId}/${entity}`
 async function find(userId, entity) {
   const connection = await getConnection();
-  const collection = connection.collection(`${userId}/${entity}`);
+  const collection = connection.collection(`${userId}/${entity.name}`);
   const result = await collection.find();
   return await result.toArray();
 }
 
 // retrieves document from a collection called `${userId}/${entity}` by id
-async function findOne(userId, entity, id) {
+async function findOne(userId, entity) {
   const connection = await getConnection();
-  const collection = connection.collection(`${userId}/${entity}`);
-  return await collection.findOne({"_id": mongodb.ObjectId(id)});
+  const collection = connection.collection(`${userId}/${entity.name}`);
+  return await collection.findOne({"_id": mongodb.ObjectId(entity.id)});
+}
+
+// deletes a document from a collection called `${userId}/${entity}` by id
+async function deleteOne(userId, entity) {
+  const connection = await getConnection();
+  const collection = connection.collection(`${userId}/${entity.name}`);
+  return await collection.deleteOne({"_id": mongodb.ObjectId(entity.id)});
 }
 
 // singleton db instance
