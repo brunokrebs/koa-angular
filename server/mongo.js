@@ -3,7 +3,7 @@ const {promisify} = require('util');
 
 // hiding connect and db
 module.exports = {
-  insert, find
+  insert, find, findOne
 };
 
 // inserts data into a collection called `${userId}/${entity}`
@@ -23,6 +23,13 @@ async function find(userId, entity) {
   const collection = connection.collection(`${userId}/${entity}`);
   const result = await collection.find();
   return await result.toArray();
+}
+
+// retrieves document from a collection called `${userId}/${entity}` by id
+async function findOne(userId, entity, id) {
+  const connection = await getConnection();
+  const collection = connection.collection(`${userId}/${entity}`);
+  return await collection.findOne({"_id": mongodb.ObjectId(id)});
 }
 
 // singleton db instance
