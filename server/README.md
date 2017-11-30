@@ -1,6 +1,10 @@
 ```bash
 docker build -t brunokrebs/secured-wildcard .
 
+docker tag brunokrebs/secured-wildcard brunokrebs/secured-wildcard
+docker push brunokrebs/secured-wildcard
+brunokrebs/secured-wildcard
+
 docker run --name secured-wildcard-mongo \
   --network digituz \
   -p 27017:27017 \
@@ -15,4 +19,5 @@ docker run --name secured-wildcard \
 
 docker stop secured-wildcard
 docker rm secured-wildcard
+docker rmi brunokrebs/secured-wildcard
 ```
