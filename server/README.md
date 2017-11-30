@@ -15,6 +15,7 @@ docker run --name secured-wildcard \
   -e "MONGODB_URL=secured-wildcard-mongo:27017/contacts" \
   -e "AUTH0_DOMAIN=bk-samples.auth0.com" \
   -e "AUTH0_AUDIENCE=https://contacts.digituz.com.br" \
+  -p 3001:3001 \
   -d brunokrebs/secured-wildcard
 
 docker stop secured-wildcard
