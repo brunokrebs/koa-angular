@@ -46,7 +46,10 @@ let db;
 async function getConnection() {
   if (!db) {
     const asyncConnect = promisify(mongodb.MongoClient.connect);
+    console.log('==== connecting to database');
+    console.log('==== db url: mongodb://' + process.env.MONGODB_URL);
     db = await asyncConnect('mongodb://' + process.env.MONGODB_URL);
+    console.log(db);
   }
   return db;
 }
